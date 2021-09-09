@@ -1,0 +1,121 @@
+nav {
+  color: black;
+  background: white;
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.068);
+}
+
+nav > a {
+  color: currentColor;
+  text-decoration: none;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  transition: color 300ms;
+}
+
+nav > a:hover:nth-child(1),
+nav > a:hover:nth-child(5) {
+  color: hsl(240, 100%, 74%);
+}
+
+nav > a:hover:nth-child(2),
+nav > a:hover:nth-child(6) {
+  color: rgb(255, 175, 122);
+}
+
+nav > a:hover:nth-child(3) {
+  color: hsl(327, 100%, 74%);
+}
+
+nav > a:hover:nth-child(4) {
+  color: hsl(138, 52%, 49%);
+}
+
+#deskNav {
+  position: fixed;
+  top: 0;
+  height: 6rem;
+  width: calc(100vw - 4rem);
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0rem 2rem;
+  gap: 2.5rem;
+  z-index: 999;
+  transition: background 500ms linear, backdrop-filter 500ms linear;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(22, 22, 22, 0.274);
+  backdrop-filter: blur(2px);
+  display: grid;
+  place-content: center;
+}
+
+.modal .container {
+  /* width: inherit; */
+  min-height: 200px;
+  max-width: 500px;
+  max-height: 90vh;
+  padding: 1rem;
+  background: white;
+  border-radius: 5px;
+}
+
+.modalHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.modalHeader i {
+  border-radius: 5px;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+.modalHeader i:hover {
+  background: rgba(0, 0, 0, 0.068);
+}
+
+.modal .container h1 {
+  display: inline-flex;
+  align-items: center;
+  gap: 2rem;
+  background: linear-gradient(135deg, #239ff1, #333cdd);
+  background-clip: text;
+  color: transparent;
+}
+
+.modal .container h1 > i {
+  font-weight: normal;
+  font-size: 4rem;
+  color: rgba(0, 0, 0, 0.199);
+}
+
+.modal .container p {
+  margin-left: 6rem;
+  width: 40ch;
+  line-height: 1.8rem;
+  opacity: 1;
+  font-size: 0.9rem;
+}
+
+.modal .container .head {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+li {
+  list-style: outside;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}

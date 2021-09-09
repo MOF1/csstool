@@ -1,0 +1,130 @@
+.Info {
+  width: 100%;
+  max-width: var(--max-width);
+}
+
+.list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.InfoMin {
+  width: 90%;
+  transition: transform 400ms ease;
+  cursor: pointer;
+}
+
+.InfoMin:hover {
+  transform: scale(1.05);
+}
+
+.infoHeader {
+  position: relative;
+  background: black;
+  color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 3rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  isolation: isolate;
+  margin-bottom: 3rem;
+}
+
+.infoHeader::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(2px);
+  background: linear-gradient(to bottom, rgba(31, 31, 31, 0.863), transparent);
+  z-index: -1;
+}
+
+.nameLogo {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.nameLogo h1 a {
+  text-decoration: none;
+  margin-left: 1rem;
+  font-size: 1.2rem;
+  color: white;
+  font-weight: normal;
+  opacity: 0.5;
+}
+
+.nameLogo h1 a:hover {
+  opacity: 1;
+}
+
+.nameLogo .image {
+  position: relative;
+  width: 3rem;
+  aspect-ratio: 1/1;
+  background: rgb(119, 81, 255);
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.nameLogo .imageT {
+  background: transparent;
+}
+
+.nameLogo .image img {
+  position: absolute;
+  inset: 0;
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+}
+
+.description {
+  max-width: 60ch;
+  line-height: 2rem;
+  margin-left: 5rem;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+
+.creditSection {
+  margin-left: 5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.creditSection h2 {
+  margin-bottom: 1rem;
+}
+
+.creditItem {
+  opacity: 0.8;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.contactBtn {
+  text-decoration: none;
+  color: white;
+
+  background: rgba(255, 255, 255, 0.068);
+  padding: 0.4rem 1rem;
+  border: 1px solid white;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.contactBtn:hover {
+  background: white;
+  color: black;
+}

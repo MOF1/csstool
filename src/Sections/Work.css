@@ -1,0 +1,129 @@
+.Work {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-bottom: 10rem;
+}
+
+hr {
+  opacity: 0.5;
+  margin-bottom: 1rem;
+}
+
+Input {
+  accent-color: #5159fc;
+}
+
+input[type="text"] {
+  background: rgba(43, 43, 43, 0.068);
+  border: 3px solid transparent;
+  border-radius: 100px;
+  min-width: 15rem;
+  outline: none;
+  padding: 0.7rem 1rem;
+  font-size: 1.2rem;
+  transition: border 300ms;
+}
+
+input[type="text"]:focus {
+  border: 3px solid rgba(43, 43, 43, 0.171);
+}
+
+input[type="color"] {
+  appearance: auto;
+  width: 4rem;
+  height: 4rem;
+  cursor: pointer;
+  border-width: 1px;
+  border-radius: 5px;
+  padding: 1px 3px;
+  background: transparent;
+}
+
+label,
+input:not([type="text"]) {
+  cursor: pointer;
+}
+
+label {
+  margin-left: 0.4rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.6rem;
+}
+
+p {
+  font-size: 1rem;
+  opacity: 0.5;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.loadingBar {
+  position: relative;
+  background: rgba(43, 43, 43, 0.158);
+  height: 1rem;
+  border-radius: 100px;
+  padding: 5px;
+  overflow: hidden;
+}
+
+.loading {
+  height: 100%;
+  border-radius: 100px;
+  background: linear-gradient(135deg, #8bc6ec, #9599e2);
+  transition: width 1000ms ease;
+}
+
+.loadingMsg {
+  font-weight: 800;
+  margin-top: 1rem;
+}
+
+.hint {
+  position: relative;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 300px;
+
+  aspect-ratio: 2 / 1;
+}
+
+.hint::after {
+  content: "HINT";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem;
+  padding-bottom: 2rem;
+  color: white;
+  font-weight: 700;
+  letter-spacing: 5px;
+  font-size: 0.7rem;
+  opacity: 0.8;
+  background: linear-gradient(to bottom, rgba(26, 26, 26, 0.849), transparent);
+}
+
+.hint img {
+  width: 300px;
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+}
+
+.config .description {
+  font-weight: 600;
+  margin-left: 0;
+  line-height: 1.5rem;
+  opacity: 0.8;
+}
