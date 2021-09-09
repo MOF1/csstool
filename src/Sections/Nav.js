@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
 import { useLocation } from "react-router";
+import { Link } from "react-router-dom";
 import About from "../Modals/About";
 import "./Nav.css";
 
@@ -16,7 +17,11 @@ export default function Nav() {
   return (
     <nav id="deskNav">
       <a href="https://MOF1.github.io">Home</a>
-      {location.pathname !== "/" && <a href="/">CSS Tool</a>}
+      {location.pathname !== "/" && (
+        <Link to="/" style={{ textDecoration: "none" }}>
+          CSS Tool
+        </Link>
+      )}
 
       <a
         href=""

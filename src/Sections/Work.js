@@ -4,7 +4,6 @@ import { ChromePicker } from "react-color";
 import "./Work.css";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
-import { useParams } from "react-router-dom";
 
 const getValue = (item) => {
   if (item.type === "select") {
@@ -37,9 +36,6 @@ export default function Work({ value, main, name, match }) {
   const [percentage, setPercentage] = useState(0);
   const [status, setStatus] = useState(true);
   const [msg, setMsg] = useState("Processing");
-
-  const { css_name } = useParams();
-  console.log(css_name);
 
   // Credit,
   // https://github.com/casesandberg/react-color/issues/750#issuecomment-684882202

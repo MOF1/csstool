@@ -20,7 +20,6 @@ export default function CssList() {
   useEffect(() => {
     getList().then((data) => {
       setState(data);
-      console.log(state);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, 1);
