@@ -1,0 +1,15 @@
+{
+  "short_name": "CSS Tool",
+  "name": "Krunker Custom CSS Tool",
+  "icons": [
+    {
+      "src": "ico.png",
+      "sizes": "446x447",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

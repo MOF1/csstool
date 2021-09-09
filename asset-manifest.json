@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/csstool/static/css/main.0eb120da.chunk.css",
+    "main.js": "/csstool/static/js/main.44bd92f4.chunk.js",
+    "main.js.map": "/csstool/static/js/main.44bd92f4.chunk.js.map",
+    "runtime-main.js": "/csstool/static/js/runtime-main.7bd0e817.js",
+    "runtime-main.js.map": "/csstool/static/js/runtime-main.7bd0e817.js.map",
+    "static/css/2.6f130b81.chunk.css": "/csstool/static/css/2.6f130b81.chunk.css",
+    "static/js/2.4f5ee8fa.chunk.js": "/csstool/static/js/2.4f5ee8fa.chunk.js",
+    "static/js/2.4f5ee8fa.chunk.js.map": "/csstool/static/js/2.4f5ee8fa.chunk.js.map",
+    "index.html": "/csstool/index.html",
+    "static/css/2.6f130b81.chunk.css.map": "/csstool/static/css/2.6f130b81.chunk.css.map",
+    "static/css/main.0eb120da.chunk.css.map": "/csstool/static/css/main.0eb120da.chunk.css.map",
+    "static/js/2.4f5ee8fa.chunk.js.LICENSE.txt": "/csstool/static/js/2.4f5ee8fa.chunk.js.LICENSE.txt",
+    "static/media/remixicon.css": "/csstool/static/media/remixicon.f2616f59.ttf"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.7bd0e817.js",
+    "static/css/2.6f130b81.chunk.css",
+    "static/js/2.4f5ee8fa.chunk.js",
+    "static/css/main.0eb120da.chunk.css",
+    "static/js/main.44bd92f4.chunk.js"
+  ]
+}
