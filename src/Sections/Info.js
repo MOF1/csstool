@@ -14,13 +14,13 @@ export default function Info({ css }) {
           </div>
           <h1>
             {css.name} CSS{" "}
-            {css.site && (
-              <a href={css.site} target="_blank" rel="noreferrer">
+            {css.repo && (
+              <a href={css.repo} target="_blank" rel="noreferrer">
                 <i className="ri-git-repository-line"></i>
               </a>
             )}
-            {css.repo && (
-              <a href={css.repo} target="_blank" rel="noreferrer">
+            {css.site && (
+              <a href={css.site} target="_blank" rel="noreferrer">
                 <i className="ri-link"></i>
               </a>
             )}
