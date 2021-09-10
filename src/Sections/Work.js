@@ -150,11 +150,9 @@ export default function Work({ value, main, name, match }) {
                 </div>
               )}
               <h3>{item.title}</h3>
-              <p className="description">
-                {item.description
-                  ? item.description
-                  : "No Description provided"}
-              </p>
+              {item.description && (
+                <p className="description">{item.description}</p>
+              )}
 
               {item.type === "color" && (
                 <ChromePicker
