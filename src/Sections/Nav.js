@@ -19,7 +19,7 @@ export default function Nav() {
       <a href="https://MOF1.github.io">Home</a>
       {location.pathname !== "/" && (
         <Link to="/" style={{ textDecoration: "none" }}>
-          CSS Tool
+          CSS List
         </Link>
       )}
 
