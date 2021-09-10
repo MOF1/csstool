@@ -11,9 +11,11 @@ const getValue = (item) => {
     if (!option) return "";
     return `${item.var}: ${option.value};
 ${option.raw_value ? option.raw_value : ""}`;
-  } else {
-    return item.default ? `${item.var}: ${item.default};` : "";
+  } else if (item.type === "imageURL") {
+    return item.default ? `${item.var}: url("${item.default}");` : "";
   }
+
+  return item.default ? `${item.var}: ${item.default};` : "";
 };
 
 const getFirstState = (value) => {
@@ -58,8 +60,16 @@ export default function Work({ value, main, name, match }) {
   const setValue = (e, i) => {
     const nState = state.map((item) => {
       item.val = item.title === i.title ? e.target.value : item.val;
-      item.value =
-        item.title === i.title ? `${item.var}: ${item.val};` : item.value;
+
+      if (item.type === "imageURL") {
+        item.value =
+          item.title === i.title
+            ? `${item.var}: url("${item.val}");`
+            : item.value;
+      } else {
+        item.value =
+          item.title === i.title ? `${item.var}: ${item.val};` : item.value;
+      }
       return item;
     });
     setState(nState);
