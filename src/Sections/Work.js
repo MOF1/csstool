@@ -59,7 +59,7 @@ export default function Work({ value, main, name, match }) {
 
   const setValue = (e, i) => {
     const nState = state.map((item) => {
-      item.val = item.title === i.title ? e.target.value : item.val;
+      item.val = item.title === i.title ? e.target.value.trim() : item.val;
 
       if (item.type === "imageURL") {
         item.value =
