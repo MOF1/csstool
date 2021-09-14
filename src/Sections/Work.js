@@ -130,22 +130,31 @@ export default function Work({ value, main, name, match }) {
         setPercentage(95);
 
         saveAs(content, `${name}_CSS.zip`);
-        setPercentage(100);
-        setStatus(true);
-        setMsg("Done. Thank you for using krunker css tool");
-
-        setTimeout(() => {
-          setProcess(false);
-        }, 4000);
       }
+
+      if (main.target_type === "css") {
+        const textDecoder = new TextDecoder("utf-8");
+        const textEncoder = new TextEncoder();
+
+        let css = textDecoder.decode(new Uint8Array(response.data));
+        setPercentage(57);
+        const newContent = css + `\n/*Overrides*/\n:root{${text}}`;
+        setPercentage(95);
+
+        saveAs(new Blob([textEncoder.encode(newContent)]), "main_custom.css");
+      }
+
+      setPercentage(100);
+      setStatus(true);
+      setMsg("Done. Thank you for using krunker css tool");
     } catch (err) {
       setStatus(false);
       setMsg(err.message);
-
-      setTimeout(() => {
-        setProcess(false);
-      }, 4000);
     }
+
+    setTimeout(() => {
+      setProcess(false);
+    }, 4000);
   };
 
   return (
