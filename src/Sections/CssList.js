@@ -22,7 +22,7 @@ export default function CssList() {
       setState(data);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, 1);
+  }, []);
 
   return (
     <div className="list">

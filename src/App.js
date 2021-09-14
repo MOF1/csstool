@@ -2,13 +2,11 @@ import "./App.css";
 import { HashRouter, Switch, Route } from "react-router-dom";
 import CssList from "./Sections/CssList";
 import Config from "./Page/Config";
-import { createHashHistory } from "history";
 import Nav from "./Sections/Nav";
-const hashHistory = createHashHistory();
 
 function App() {
   return (
-    <HashRouter history={hashHistory}>
+    <HashRouter>
       <div className="App">
         <Nav />
         <Switch>

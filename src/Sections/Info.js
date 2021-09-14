@@ -31,11 +31,12 @@ export default function Info({ css }) {
         {css.credits.length > 0 && (
           <div className="creditSection">
             <h2>Credits</h2>
-            {css.credits.map((item) => (
-              <p className="creditItem">
+            {css.credits.map((item, id) => (
+              <p key={id} className="creditItem">
                 {item.name}{" "}
-                {item.contacts.map((contact) => (
+                {item.contacts.map((contact, id2) => (
                   <a
+                    key={id2}
                     className="contactBtn"
                     target="_blank"
                     href={contact.link}
