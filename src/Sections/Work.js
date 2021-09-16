@@ -234,8 +234,6 @@ export default function Work({ value, main, name, match }) {
                     )}
                   </div>
                 )}
-
-                {state.length !== id + 1 && <hr></hr>}
               </div>
             ))}
           </>

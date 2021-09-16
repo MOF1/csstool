@@ -1,7 +1,7 @@
 .Work {
   width: 100%;
   max-width: var(--max-width);
-  margin-bottom: 0rem;
+  margin-bottom: 12rem;
 }
 
 hr {
@@ -14,14 +14,19 @@ Input {
 }
 
 input[type="text"] {
-  background: rgba(43, 43, 43, 0.068);
+  background: #dfe1ff;
   border: 3px solid transparent;
-  border-radius: 100px;
+  border-radius: 5px;
   min-width: 15rem;
+  width: 100%;
   outline: none;
   padding: 0.7rem 1rem;
   font-size: 1.2rem;
   transition: border 300ms;
+}
+
+input[type="text"]::placeholder {
+  color: #7a7fdf;
 }
 
 input[type="text"]:focus {
@@ -59,6 +64,10 @@ p {
 h3 {
   font-size: 1.5rem;
   margin-bottom: 0.6rem;
+}
+
+h3:last-child {
+  margin-bottom: 0rem;
 }
 
 p {
@@ -121,6 +130,11 @@ p {
   object-fit: cover;
 }
 
+.config {
+  background: #eaeaff;
+  border-radius: 5px;
+}
+
 .config .description {
   font-weight: 600;
   margin-left: 0;
@@ -157,11 +171,25 @@ p {
   padding: 1rem;
   margin: 1rem 0rem;
   border-radius: 5px;
+  background: white;
+  transition: background 300ms;
 }
 
 .configMinItem.show {
   color: white;
   background: #5159fc;
+}
+
+@keyframes fadeReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .configMaxItem {
@@ -170,12 +198,13 @@ p {
   align-items: flex-start;
   gap: 1rem;
   justify-content: space-between;
+  animation: fadeReveal 500ms ease 0ms forwards;
 }
 
 .inputContainer {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
 .configMinItem:hover {
