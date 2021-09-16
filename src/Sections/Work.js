@@ -24,6 +24,7 @@ const getFirstState = (value) => {
       ...item,
       value: item.default ? getValue(item) : "",
       val: item.default ? item.default : "",
+      show: false,
     };
   });
 };
@@ -157,6 +158,15 @@ export default function Work({ value, main, name, match }) {
     }, 4000);
   };
 
+  const expand = (title, value) => {
+    setState(
+      state.map((item) => {
+        item.show = item.title === title ? !item.show : item.show;
+        return item;
+      })
+    );
+  };
+
   return (
     <>
       <div className="Work">
@@ -164,52 +174,67 @@ export default function Work({ value, main, name, match }) {
           <>
             {state.map((item, id) => (
               <div className="config" key={id}>
-                {item.hint_image && (
-                  <div className="hint">
-                    <img src={item.hint_image} alt={item.title}></img>
+                <div
+                  className={`configMinItem ${item.show && "show"}`}
+                  onClick={() => expand(item.title, !item.show)}
+                >
+                  <h3>{item.title}</h3>
+                  {item.description && (
+                    <p className="description">{item.description}</p>
+                  )}
+                </div>
+
+                {item.show && (
+                  <div className="configMaxItem">
+                    <div className="inputContainer">
+                      <h4>Change Value</h4>
+                      {item.type === "color" && (
+                        <ChromePicker
+                          color={item.val}
+                          onChangeComplete={(e) => setColor(e, item)}
+                        />
+                      )}
+
+                      <div>
+                        {item.type === "select" &&
+                          item.options.map((option, id) => (
+                            <div key={id} style={{ marginBottom: "1rem" }}>
+                              <input
+                                onChange={(e) => setOption(e, item, option)}
+                                checked={
+                                  item.val === option.name ? true : false
+                                }
+                                id={item.var + option.name}
+                                type="radio"
+                                name={item.title}
+                                value={option.name}
+                              />
+                              <label htmlFor={item.var + option.name}>
+                                {option.name}
+                              </label>
+                            </div>
+                          ))}
+                      </div>
+
+                      {item.type === "imageURL" && (
+                        <input
+                          onChange={(e) => setValue(e, item)}
+                          id={item.var}
+                          type="text"
+                          value={item.val}
+                          placeholder="Image URL"
+                        />
+                      )}
+                    </div>
+
+                    {item.hint_image && (
+                      <div className="hint">
+                        <img src={item.hint_image} alt={item.title}></img>
+                      </div>
+                    )}
                   </div>
                 )}
-                <h3>{item.title}</h3>
-                {item.description && (
-                  <p className="description">{item.description}</p>
-                )}
 
-                {item.type === "color" && (
-                  <ChromePicker
-                    color={item.val}
-                    onChangeComplete={(e) => setColor(e, item)}
-                  />
-                )}
-
-                {item.type === "select" &&
-                  item.options.map((option, id) => (
-                    <div key={id} style={{ marginBottom: "1rem" }}>
-                      <input
-                        onChange={(e) => setOption(e, item, option)}
-                        checked={item.val === option.name ? true : false}
-                        id={item.var + option.name}
-                        type="radio"
-                        name={item.title}
-                        value={option.name}
-                      />
-                      <label htmlFor={item.var + option.name}>
-                        {option.name}
-                      </label>
-                    </div>
-                  ))}
-
-                {item.type === "imageURL" && (
-                  <input
-                    onChange={(e) => setValue(e, item)}
-                    id={item.var}
-                    type="text"
-                    value={item.val}
-                    placeholder="Image URL"
-                  />
-                )}
-
-                <br></br>
-                <br></br>
                 {state.length !== id + 1 && <hr></hr>}
               </div>
             ))}
