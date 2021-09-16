@@ -11,6 +11,10 @@ body {
   font-family: var(--font);
 }
 
+button {
+  font-family: var(--font);
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
