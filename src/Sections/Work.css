@@ -1,7 +1,7 @@
 .Work {
   width: 100%;
   max-width: var(--max-width);
-  margin-bottom: 10rem;
+  margin-bottom: 0rem;
 }
 
 hr {
@@ -126,4 +126,25 @@ p {
   margin-left: 0;
   line-height: 1.5rem;
   opacity: 0.8;
+}
+
+.downloadBar {
+  position: sticky;
+  bottom: 0;
+  padding: 1rem 1rem;
+  background: white;
+  display: grid;
+  place-content: center;
+  width: 100%;
+  box-shadow: 0px -7px 10px rgba(0, 0, 0, 0.089);
+}
+
+.downloadBar .wrapper {
+  max-width: var(--max-width);
+  width: calc(100vw - 3.001rem);
+  padding: 0rem 1rem;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 }
