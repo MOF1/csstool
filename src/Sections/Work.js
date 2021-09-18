@@ -104,6 +104,16 @@ export default function Work({ value, main, name, match }) {
       let text = "";
       state.map((item) => {
         text += item.val ? `\n${item.value}` : "";
+
+        if (item.type === "imageURL") {
+          if (!item.val && item.raw_value_on_empty) {
+            text += "\n" + item.raw_value_on_empty;
+          }
+
+          if (item.val && item.raw_value_on_fill) {
+            text += "\n" + item.raw_value_on_fill;
+          }
+        }
         return item;
       });
       setPercentage(7);
