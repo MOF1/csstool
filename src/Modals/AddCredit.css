@@ -1,3 +1,13 @@
+.modal {
+  z-index: 111111;
+}
+
+.modal .scroller {
+  max-height: 40vh;
+  overflow-y: auto;
+  width: 100%;
+}
+
 .modal .container.addcredit p {
   margin-left: 0;
 }
@@ -7,7 +17,8 @@
   margin-bottom: 0rem;
 }
 
-.linkLists {
+.linkLists,
+.optionList {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -17,7 +28,14 @@
   margin-bottom: 1rem;
 }
 
-.linkLists .linkItem {
+.optionList {
+  overflow-y: unset;
+  max-height: unset;
+  width: calc(100% - 0.7rem);
+}
+
+.linkLists .linkItem,
+.optionList .optionItem {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -27,13 +45,15 @@
   padding-right: 0.1rem;
 }
 
-.linkItemActions {
+.linkItemActions,
+.optionItemActions {
   display: flex;
   align-items: center;
   gap: 0.2rem;
 }
 
-.linkItemActions i {
+.linkItemActions i,
+.optionItemActions i {
   cursor: pointer;
   width: 2.5rem;
   height: 2.5rem;
@@ -42,7 +62,8 @@
   font-size: 1.2rem;
 }
 
-.linkItemActions i:hover {
+.linkItemActions i:hover,
+.optionItemActions i:hover {
   background: #c5c7e0;
 }
 

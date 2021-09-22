@@ -13,7 +13,8 @@ Input {
   accent-color: #5159fc;
 }
 
-input[type="text"] {
+input[type="text"],
+textarea {
   background: #dfe1ff;
   border: 3px solid transparent;
   border-radius: 5px;
@@ -25,11 +26,13 @@ input[type="text"] {
   transition: border 300ms;
 }
 
-input[type="text"]::placeholder {
+input[type="text"]::placeholder,
+textarea::placeholder {
   color: #7a7fdf;
 }
 
-input[type="text"]:focus {
+input[type="text"]:focus,
+textarea:focus {
   border: 3px solid rgba(43, 43, 43, 0.171);
 }
 

@@ -86,3 +86,44 @@ button i {
   color: #5159fc;
   background: #e4e6ff;
 }
+
+textarea {
+  resize: none;
+  width: calc(100% - 3rem) !important;
+  height: 5rem;
+  border: 2px solid transparent;
+  font-family: "Arial";
+  font-weight: 400;
+  line-height: 2rem;
+  outline: none;
+  margin-bottom: 1rem;
+}
+
+.radioContainer {
+  height: 2.4rem;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.radioContainer input {
+  display: none;
+}
+
+.radioContainer label {
+  margin: 0;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  transition: color 300ms, background 300ms;
+}
+
+.radioContainer input:checked + label {
+  background: #5159fc;
+  padding: 0.5rem 1rem;
+  color: white;
+}
