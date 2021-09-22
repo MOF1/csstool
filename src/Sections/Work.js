@@ -33,19 +33,19 @@ const sleep = (ms) => {
   return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
+// Credit,
+// https://github.com/casesandberg/react-color/issues/750#issuecomment-684882202
+export const decimalToHex = (alpha) => {
+  let aHex = Math.round(255 * alpha).toString(16);
+  return alpha === 0 ? "00" : aHex.length < 2 ? `0${aHex}` : aHex;
+};
+
 export default function Work({ value, main, name, match }) {
   const [state, setState] = useState(() => getFirstState(value));
   const [onProcess, setProcess] = useState(false);
   const [percentage, setPercentage] = useState(0);
   const [status, setStatus] = useState(true);
   const [msg, setMsg] = useState("Processing");
-
-  // Credit,
-  // https://github.com/casesandberg/react-color/issues/750#issuecomment-684882202
-  const decimalToHex = (alpha) => {
-    let aHex = Math.round(255 * alpha).toString(16);
-    return alpha === 0 ? "00" : aHex.length < 2 ? `0${aHex}` : aHex;
-  };
 
   const setColor = (e, i) => {
     const color = `${e.hex}${decimalToHex(e.rgb.a)}`;
