@@ -118,6 +118,10 @@ export default function AddConfig({ setShow, configs, setConfigs }) {
   const configOK = () => {
     const type = getCurrType();
 
+    if (cvar === "") {
+      return false;
+    }
+
     if (type === "select") {
       const dOption = options.find((option) => option.name === defaultOption);
 
@@ -138,6 +142,7 @@ export default function AddConfig({ setShow, configs, setConfigs }) {
         {
           title: name,
           description,
+          type: "select",
           var: cvar,
           default: defaultOption,
           hint_image,
@@ -150,6 +155,7 @@ export default function AddConfig({ setShow, configs, setConfigs }) {
         {
           title: name,
           description,
+          type: "imageURL",
           var: cvar,
           default: defaultVar,
           hint_image,
@@ -163,6 +169,7 @@ export default function AddConfig({ setShow, configs, setConfigs }) {
         {
           title: name,
           description,
+          type: "color",
           var: cvar,
           default: defaultColor,
           hint_image,
