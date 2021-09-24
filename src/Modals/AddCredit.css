@@ -96,7 +96,19 @@
   margin-top: 3rem;
 }
 
-.modalBottomBar .reset {
+.modalBottomBar .reset,
+.downloadBar .reset {
   color: #5060f7;
   background: #d7dcff;
+}
+
+.downloadBar .test {
+  color: #f75066;
+  background: #ffd7dc;
+}
+
+.downloadBar .load {
+  position: relative;
+  color: #2f79da;
+  background: #d7e8ff;
 }
