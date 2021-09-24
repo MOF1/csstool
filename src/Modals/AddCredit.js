@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import "./AddCredit.css";
 import AddLink from "./AddLink";
+import EditLink from "./EditLink";
 
 export default function AddCredit({ setShow, credits, setCredits }) {
   const [err, setErr] = useState(false);
   const [errMsg, setMsg] = useState("");
   const [name, setName] = useState("");
   const [links, setLinks] = useState([]);
+  const [focusIndex, setFocusIndex] = useState(0);
+  const [focusLink, setFocusLink] = useState({});
   const [showAddLink, setAddLink] = useState(false);
+  const [showEditLink, setEditLink] = useState(false);
 
   const setNameState = (e) => {
     setName(e.target.value.trim());
@@ -24,6 +28,12 @@ export default function AddCredit({ setShow, credits, setCredits }) {
     setCredits([...credits, { name, contacts: links }]);
     resetData();
     setShow(false);
+  };
+
+  const removeReference = (index) => {
+    const nLinks = links.map((item) => item);
+    nLinks.splice(index, 1);
+    setLinks(nLinks);
   };
 
   const resetData = () => {
@@ -69,8 +79,18 @@ export default function AddCredit({ setShow, credits, setCredits }) {
               <div className="linkItem" key={index}>
                 <div className="linkName">{link.type}</div>
                 <div className="linkItemActions">
-                  <i className="ri-pencil-fill"></i>
-                  <i className="ri-delete-bin-line"></i>
+                  <i
+                    onClick={() => {
+                      setFocusIndex(index);
+                      setFocusLink(link);
+                      setEditLink(true);
+                    }}
+                    className="ri-pencil-fill"
+                  ></i>
+                  <i
+                    onClick={() => removeReference(index)}
+                    className="ri-delete-bin-line"
+                  ></i>
                 </div>
               </div>
             ))}
@@ -93,6 +113,16 @@ export default function AddCredit({ setShow, credits, setCredits }) {
       </div>
       {showAddLink && (
         <AddLink setShow={setAddLink} links={links} setLinks={setLinks} />
+      )}
+
+      {showEditLink && (
+        <EditLink
+          setShow={setEditLink}
+          links={links}
+          setLinks={setLinks}
+          focusIndex={focusIndex}
+          focusLink={focusLink}
+        />
       )}
     </>
   );
