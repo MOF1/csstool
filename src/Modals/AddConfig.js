@@ -159,8 +159,8 @@ export default function AddConfig({ setShow, configs, setConfigs }) {
           var: cvar,
           default: defaultVar,
           hint_image,
-          raw_on_empty,
-          raw_on_fill,
+          raw_value_on_empty: raw_on_empty,
+          raw_value_on_fill: raw_on_fill,
         },
       ]);
     } else if (type === "color") {
