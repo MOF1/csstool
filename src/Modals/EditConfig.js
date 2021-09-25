@@ -163,46 +163,32 @@ export default function EditConfig({
   const addConfig = () => {
     const type = getCurrType();
 
-    if (type === "select") {
-      setConfigs([
-        ...configs,
-        {
-          title: name,
-          description,
-          type: "select",
-          var: cvar,
-          default: defaultOption,
-          hint_image,
-          options,
-        },
-      ]);
-    } else if (type === "imageURL") {
-      setConfigs([
-        ...configs,
-        {
-          title: name,
-          description,
-          type: "imageURL",
-          var: cvar,
-          default: defaultVar,
-          hint_image,
-          raw_value_on_empty: raw_on_empty,
-          raw_value_on_fill: raw_on_fill,
-        },
-      ]);
-    } else if (type === "color") {
-      setConfigs([
-        ...configs,
-        {
-          title: name,
-          description,
-          type: "color",
-          var: cvar,
-          default: defaultColor,
-          hint_image,
-        },
-      ]);
-    }
+    const nConfig = configs.map((item, index) => {
+      if (index !== focusConfigIndex) return item;
+
+      item.title = name;
+      item.description = description;
+      item.var = cvar;
+      item.hint_image = hint_image;
+
+      if (type === "select") {
+        item.type = "select";
+        item.default = defaultOption;
+        item.options = options;
+      } else if (type === "imageURL") {
+        item.type = "imageURL";
+        item.default = defaultVar;
+        item.raw_value_on_empty = raw_on_empty;
+        item.raw_value_on_fill = raw_on_fill;
+      } else if (type === "color") {
+        item.type = "color";
+        item.default = defaultColor;
+      }
+
+      return item;
+    });
+
+    setConfigs(nConfig);
 
     resetData();
     setShow(false);
