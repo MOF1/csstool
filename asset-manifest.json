@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/csstool/static/css/main.b198b82a.chunk.css",
-    "main.js": "/csstool/static/js/main.0ab29e97.chunk.js",
-    "main.js.map": "/csstool/static/js/main.0ab29e97.chunk.js.map",
+    "main.css": "/csstool/static/css/main.4353ab54.chunk.css",
+    "main.js": "/csstool/static/js/main.d17cf60c.chunk.js",
+    "main.js.map": "/csstool/static/js/main.d17cf60c.chunk.js.map",
     "runtime-main.js": "/csstool/static/js/runtime-main.7bd0e817.js",
     "runtime-main.js.map": "/csstool/static/js/runtime-main.7bd0e817.js.map",
     "static/css/2.6f130b81.chunk.css": "/csstool/static/css/2.6f130b81.chunk.css",
-    "static/js/2.7688a4a5.chunk.js": "/csstool/static/js/2.7688a4a5.chunk.js",
-    "static/js/2.7688a4a5.chunk.js.map": "/csstool/static/js/2.7688a4a5.chunk.js.map",
+    "static/js/2.84665b57.chunk.js": "/csstool/static/js/2.84665b57.chunk.js",
+    "static/js/2.84665b57.chunk.js.map": "/csstool/static/js/2.84665b57.chunk.js.map",
     "index.html": "/csstool/index.html",
     "static/css/2.6f130b81.chunk.css.map": "/csstool/static/css/2.6f130b81.chunk.css.map",
-    "static/css/main.b198b82a.chunk.css.map": "/csstool/static/css/main.b198b82a.chunk.css.map",
-    "static/js/2.7688a4a5.chunk.js.LICENSE.txt": "/csstool/static/js/2.7688a4a5.chunk.js.LICENSE.txt",
+    "static/css/main.4353ab54.chunk.css.map": "/csstool/static/css/main.4353ab54.chunk.css.map",
+    "static/js/2.84665b57.chunk.js.LICENSE.txt": "/csstool/static/js/2.84665b57.chunk.js.LICENSE.txt",
     "static/media/remixicon.css": "/csstool/static/media/remixicon.f2616f59.ttf"
   },
   "entrypoints": [
     "static/js/runtime-main.7bd0e817.js",
     "static/css/2.6f130b81.chunk.css",
-    "static/js/2.7688a4a5.chunk.js",
-    "static/css/main.b198b82a.chunk.css",
-    "static/js/main.0ab29e97.chunk.js"
+    "static/js/2.84665b57.chunk.js",
+    "static/css/main.4353ab54.chunk.css",
+    "static/js/main.d17cf60c.chunk.js"
   ]
 }
