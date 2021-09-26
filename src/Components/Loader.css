@@ -110,6 +110,11 @@
   gap: 1rem;
 }
 
+.bigButton.disabled {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
 .bigButton i {
   font-size: 5rem;
   font-weight: normal;

@@ -154,3 +154,12 @@
 .configInItem.add:hover * {
   color: white;
 }
+
+button.save {
+  background: #298fe2;
+}
+
+button.save.busy {
+  pointer-events: none;
+  opacity: 0.4;
+}
