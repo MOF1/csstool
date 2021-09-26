@@ -10,6 +10,7 @@ import { saveAs } from "file-saver";
 import "./ConfigCreate.css";
 import Preview from "../Sections/Preview";
 import Info from "../Sections/Info";
+import ConfigHeader from "../Sections/ConfigHeader";
 
 const getBase = () => ({
   name: "",
@@ -158,6 +159,7 @@ export default function ConfigCreate() {
 
       {!showPreview && (
         <>
+          <ConfigHeader />
           <div className="configSection">
             {/* Base Details */}
             <div className="baseConfig">
