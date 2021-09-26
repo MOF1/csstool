@@ -8,6 +8,8 @@ import { sleep } from "../Sections/Work";
 import { scan_config } from "../Utils/utils";
 import { saveAs } from "file-saver";
 import "./ConfigCreate.css";
+import Preview from "../Sections/Preview";
+import Info from "../Sections/Info";
 
 const getBase = () => ({
   name: "",
@@ -59,6 +61,9 @@ export default function ConfigCreate() {
   const [localSaving, setLocalSaving] = useState(false);
   const [configOk, setConfigOk] = useState(false);
 
+  // Preview
+  const [showPreview, setPreview] = useState(false);
+
   useEffect(() => {
     if (data) {
       setMain(data.main);
@@ -85,13 +90,14 @@ export default function ConfigCreate() {
     setConfigOk(scan_config(raw).success);
   }, [main, base, configs, credits]);
 
+  const getConfig = () => {
+    return { base: { ...base, credits }, main, configs };
+  };
+
   const saveIntoLocal = async () => {
     setLocalSaving(true);
     await sleep(1000);
-    localStorage.setItem(
-      "css_config",
-      JSON.stringify({ base: { ...base, credits }, main, configs })
-    );
+    localStorage.setItem("css_config", JSON.stringify(getConfig()));
     setLocalSaving(false);
   };
 
@@ -99,11 +105,7 @@ export default function ConfigCreate() {
     const textEncoder = new TextEncoder();
 
     saveAs(
-      new Blob([
-        textEncoder.encode(
-          JSON.stringify({ base: { ...base, credits }, main, configs })
-        ),
-      ]),
+      new Blob([textEncoder.encode(JSON.stringify(getConfig()))]),
       `${base.name}_css_config.json`
     );
   };
@@ -142,355 +144,382 @@ export default function ConfigCreate() {
 
   return (
     <>
-      <div className="configSection">
-        {/* Base Details */}
-        <div className="baseConfig">
-          <div className="configItem">
-            <p className="configHead">CSS Name</p>
-            <input
-              value={base.name}
-              onChange={(e) => {
-                setBase({ ...base, name: e.target.value });
-              }}
-              type="text"
-              placeholder="Name"
-              required={true}
-            />
-          </div>
+      {showPreview && (
+        <>
+          <Info css={{ ...base, credits }} />{" "}
+          <Preview
+            value={configs}
+            main={main}
+            name={base.name}
+            closePreview={setPreview}
+          />
+        </>
+      )}
 
-          <div className="configItem">
-            <p className="configHead">
-              CSS Logo <span>(Optional)</span>
-            </p>
-
-            <input
-              value={base.logo}
-              onChange={(e) => {
-                setBase({ ...base, logo: e.target.value });
-              }}
-              type="text"
-              placeholder="Logo Image Url"
-              required={false}
-            />
-          </div>
-
-          <div className="configItem">
-            <p className="configHead">
-              About CSS <span>(Optional)</span>
-            </p>
-            <textarea
-              value={base.description}
-              onChange={(e) => {
-                setBase({ ...base, description: e.target.value });
-              }}
-              type="text"
-              placeholder="Description"
-              required={false}
-            />
-          </div>
-
-          <div className="configItem">
-            <p className="configHead">
-              Cover Image <span>(Optional)</span>
-            </p>
-            <input
-              value={base.cover}
-              onChange={(e) => {
-                setBase({ ...base, cover: e.target.value });
-              }}
-              type="text"
-              placeholder="Cover Image Url"
-              required={false}
-            />
-          </div>
-
-          <div className="configItem">
-            <p className="configHead">
-              Repository Link <span>(Optional)</span>
-            </p>
-
-            <input
-              value={base.repo}
-              onChange={(e) => {
-                setBase({ ...base, repo: e.target.value });
-              }}
-              type="text"
-              placeholder="Github Repo Link"
-              required={false}
-            />
-          </div>
-
-          <div className="configItem">
-            <p className="configHead">
-              Website if available <span>(Optional)</span>
-            </p>
-            <input
-              value={base.site}
-              onChange={(e) => {
-                setBase({ ...base, site: e.target.value });
-              }}
-              type="text"
-              placeholder="Website Url"
-              required={false}
-            />
-          </div>
-
-          <div className="configItem configIn">
-            <p className="configHead">
-              Credits <span>(Optional)</span>
-            </p>
-            {credits.length < 1 ? (
-              <div onClick={() => setAddCredit(true)} className="emptyCredit">
-                No credits here.<br></br>Add one
+      {!showPreview && (
+        <>
+          <div className="configSection">
+            {/* Base Details */}
+            <div className="baseConfig">
+              <div className="configItem">
+                <p className="configHead">CSS Name</p>
+                <input
+                  value={base.name}
+                  onChange={(e) => {
+                    setBase({ ...base, name: e.target.value });
+                  }}
+                  type="text"
+                  placeholder="Name"
+                  required={true}
+                />
               </div>
-            ) : (
-              <div className="configList">
-                {credits.map((item, id) => (
-                  <div key={id} className="configInItem">
-                    <div className="configInItemInfo">
-                      <i className="ri-pencil-ruler-2-fill"></i>
-                      {item.name}
-                    </div>
-                    <div className="configInItemActions">
-                      <i
-                        onClick={() => removeCredit(item.name)}
-                        className="ri-delete-bin-2-line"
-                      ></i>
-                      <i
-                        onClick={() => {
-                          setFocusCreditIndex(id);
-                          setFocusCredit(item);
-                          setEditCredit(true);
-                        }}
-                        className="ri-edit-2-fill"
-                      ></i>
-                      {credits.length > 1 && (
-                        <>
+
+              <div className="configItem">
+                <p className="configHead">
+                  CSS Logo <span>(Optional)</span>
+                </p>
+
+                <input
+                  value={base.logo}
+                  onChange={(e) => {
+                    setBase({ ...base, logo: e.target.value });
+                  }}
+                  type="text"
+                  placeholder="Logo Image Url"
+                  required={false}
+                />
+              </div>
+
+              <div className="configItem">
+                <p className="configHead">
+                  About CSS <span>(Optional)</span>
+                </p>
+                <textarea
+                  value={base.description}
+                  onChange={(e) => {
+                    setBase({ ...base, description: e.target.value });
+                  }}
+                  type="text"
+                  placeholder="Description"
+                  required={false}
+                />
+              </div>
+
+              <div className="configItem">
+                <p className="configHead">
+                  Cover Image <span>(Optional)</span>
+                </p>
+                <input
+                  value={base.cover}
+                  onChange={(e) => {
+                    setBase({ ...base, cover: e.target.value });
+                  }}
+                  type="text"
+                  placeholder="Cover Image Url"
+                  required={false}
+                />
+              </div>
+
+              <div className="configItem">
+                <p className="configHead">
+                  Repository Link <span>(Optional)</span>
+                </p>
+
+                <input
+                  value={base.repo}
+                  onChange={(e) => {
+                    setBase({ ...base, repo: e.target.value });
+                  }}
+                  type="text"
+                  placeholder="Github Repo Link"
+                  required={false}
+                />
+              </div>
+
+              <div className="configItem">
+                <p className="configHead">
+                  Website if available <span>(Optional)</span>
+                </p>
+                <input
+                  value={base.site}
+                  onChange={(e) => {
+                    setBase({ ...base, site: e.target.value });
+                  }}
+                  type="text"
+                  placeholder="Website Url"
+                  required={false}
+                />
+              </div>
+
+              <div className="configItem configIn">
+                <p className="configHead">
+                  Credits <span>(Optional)</span>
+                </p>
+                {credits.length < 1 ? (
+                  <div
+                    onClick={() => setAddCredit(true)}
+                    className="emptyCredit"
+                  >
+                    No credits here.<br></br>Add one
+                  </div>
+                ) : (
+                  <div className="configList">
+                    {credits.map((item, id) => (
+                      <div key={id} className="configInItem">
+                        <div className="configInItemInfo">
+                          <i className="ri-pencil-ruler-2-fill"></i>
+                          {item.name}
+                        </div>
+                        <div className="configInItemActions">
                           <i
-                            onClick={() => stackCredit(item.name)}
-                            className="ri-arrow-up-s-line"
+                            onClick={() => removeCredit(item.name)}
+                            className="ri-delete-bin-2-line"
                           ></i>
                           <i
-                            onClick={() => stackCredit(item.name, false)}
-                            className="ri-arrow-down-s-line"
+                            onClick={() => {
+                              setFocusCreditIndex(id);
+                              setFocusCredit(item);
+                              setEditCredit(true);
+                            }}
+                            className="ri-edit-2-fill"
                           ></i>
-                        </>
-                      )}
+                          {credits.length > 1 && (
+                            <>
+                              <i
+                                onClick={() => stackCredit(item.name)}
+                                className="ri-arrow-up-s-line"
+                              ></i>
+                              <i
+                                onClick={() => stackCredit(item.name, false)}
+                                className="ri-arrow-down-s-line"
+                              ></i>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                    <div
+                      onClick={() => setAddCredit(true)}
+                      key="addmore"
+                      className="configInItem add"
+                    >
+                      <div className="configInItemInfo">
+                        <i className="ri-menu-add-line"></i>
+                        Add More
+                      </div>
                     </div>
                   </div>
-                ))}
-                <div
-                  onClick={() => setAddCredit(true)}
-                  key="addmore"
-                  className="configInItem add"
-                >
-                  <div className="configInItemInfo">
-                    <i className="ri-menu-add-line"></i>
-                    Add More
+                )}
+              </div>
+
+              <div className="configItem configIn">
+                <p className="configHead">Configurations</p>
+                {configs.length < 1 ? (
+                  <div
+                    onClick={() => setAddConfig(true)}
+                    className="emptyCredit"
+                  >
+                    You didn't add configuation yet.<br></br>Add one or more
+                    configuration depending on your css.
                   </div>
+                ) : (
+                  <div className="configList">
+                    {configs.map((item, id) => (
+                      <div key={id} className="configInItem">
+                        <div className="configInItemInfo">
+                          {item.type === "color" && (
+                            <i className="ri-brush-2-fill"></i>
+                          )}
+
+                          {item.type === "imageURL" && (
+                            <i className="ri-image-2-fill"></i>
+                          )}
+
+                          {item.type === "select" && (
+                            <i className="ri-checkbox-multiple-fill"></i>
+                          )}
+
+                          {item.title}
+                        </div>
+                        <div className="configInItemActions">
+                          <i
+                            onClick={() => removeConfig(item.title)}
+                            className="ri-delete-bin-2-line"
+                          ></i>
+                          <i
+                            onClick={() => {
+                              setFocusConfigIndex(id);
+                              setFocusConfig(item);
+                              setEditConfig(true);
+                            }}
+                            className="ri-edit-2-fill"
+                          ></i>
+                          {configs.length > 1 && (
+                            <>
+                              <i
+                                onClick={() => stackConfig(item.title)}
+                                className="ri-arrow-up-s-line"
+                              ></i>
+                              <i
+                                onClick={() => stackConfig(item.title, false)}
+                                className="ri-arrow-down-s-line"
+                              ></i>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                    <div
+                      onClick={() => setAddConfig(true)}
+                      key="addmore"
+                      className="configInItem add"
+                    >
+                      <div className="configInItemInfo">
+                        <i className="ri-menu-add-line"></i>
+                        Add More
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="configItem">
+                <p className="configHead">Target Type</p>
+                <div className="radioContainer">
+                  <input
+                    id="zip"
+                    type="radio"
+                    name="target_type"
+                    value="zip"
+                    onChange={() => setMain({ ...main, target_type: "zip" })}
+                    checked={main.target_type === "zip"}
+                  />
+                  <label htmlFor="zip">Zip</label>
+                  <input
+                    id="css"
+                    type="radio"
+                    name="target_type"
+                    value="css"
+                    onChange={() => setMain({ ...main, target_type: "css" })}
+                    checked={main.target_type === "css"}
+                  />
+                  <label htmlFor="css">CSS</label>
                 </div>
               </div>
-            )}
-          </div>
 
-          <div className="configItem configIn">
-            <p className="configHead">Configurations</p>
-            {configs.length < 1 ? (
-              <div onClick={() => setAddConfig(true)} className="emptyCredit">
-                You didn't add configuation yet.<br></br>Add one or more
-                configuration depending on your css.
+              <div className="configItem" style={{ gridColumn: "1 / span 1" }}>
+                <p className="configHead">
+                  Target{" "}
+                  <span>
+                    (Use only public origin urls like raw.githubusercontent)
+                  </span>
+                </p>
+                <input
+                  value={main.target_url}
+                  onChange={(e) => {
+                    setMain({ ...main, target_url: e.target.value });
+                  }}
+                  type="text"
+                  placeholder={`${
+                    main.target_type === "css" ? "Css Url" : "Zip Url"
+                  }`}
+                  required={false}
+                />
               </div>
-            ) : (
-              <div className="configList">
-                {configs.map((item, id) => (
-                  <div key={id} className="configInItem">
-                    <div className="configInItemInfo">
-                      {item.type === "color" && (
-                        <i className="ri-brush-2-fill"></i>
-                      )}
-
-                      {item.type === "imageURL" && (
-                        <i className="ri-image-2-fill"></i>
-                      )}
-
-                      {item.type === "select" && (
-                        <i className="ri-checkbox-multiple-fill"></i>
-                      )}
-
-                      {item.title}
-                    </div>
-                    <div className="configInItemActions">
-                      <i
-                        onClick={() => removeConfig(item.title)}
-                        className="ri-delete-bin-2-line"
-                      ></i>
-                      <i
-                        onClick={() => {
-                          setFocusConfigIndex(id);
-                          setFocusConfig(item);
-                          setEditConfig(true);
-                        }}
-                        className="ri-edit-2-fill"
-                      ></i>
-                      {configs.length > 1 && (
-                        <>
-                          <i
-                            onClick={() => stackConfig(item.title)}
-                            className="ri-arrow-up-s-line"
-                          ></i>
-                          <i
-                            onClick={() => stackConfig(item.title, false)}
-                            className="ri-arrow-down-s-line"
-                          ></i>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                ))}
+              {main.target_type === "zip" && (
                 <div
-                  onClick={() => setAddConfig(true)}
-                  key="addmore"
-                  className="configInItem add"
+                  className="configItem"
+                  style={{ gridColumn: "2 / span 1" }}
                 >
-                  <div className="configInItemInfo">
-                    <i className="ri-menu-add-line"></i>
-                    Add More
-                  </div>
+                  <p className="configHead">Target File</p>
+                  <input
+                    value={main.target_file}
+                    onChange={(e) => {
+                      setMain({ ...main, target_file: e.target.value });
+                    }}
+                    type="text"
+                    placeholder="ex. css/main.custom.css"
+                    required={false}
+                  />
                 </div>
-              </div>
-            )}
-          </div>
-
-          <div className="configItem">
-            <p className="configHead">Target Type</p>
-            <div className="radioContainer">
-              <input
-                id="zip"
-                type="radio"
-                name="target_type"
-                value="zip"
-                onChange={() => setMain({ ...main, target_type: "zip" })}
-                checked={main.target_type === "zip"}
-              />
-              <label htmlFor="zip">Zip</label>
-              <input
-                id="css"
-                type="radio"
-                name="target_type"
-                value="css"
-                onChange={() => setMain({ ...main, target_type: "css" })}
-                checked={main.target_type === "css"}
-              />
-              <label htmlFor="css">CSS</label>
+              )}
             </div>
           </div>
 
-          <div className="configItem" style={{ gridColumn: "1 / span 1" }}>
-            <p className="configHead">
-              Target{" "}
-              <span>
-                (Use only public origin urls like raw.githubusercontent)
-              </span>
-            </p>
-            <input
-              value={main.target_url}
-              onChange={(e) => {
-                setMain({ ...main, target_url: e.target.value });
-              }}
-              type="text"
-              placeholder={`${
-                main.target_type === "css" ? "Css Url" : "Zip Url"
-              }`}
-              required={false}
-            />
-          </div>
-          {main.target_type === "zip" && (
-            <div className="configItem" style={{ gridColumn: "2 / span 1" }}>
-              <p className="configHead">Target File</p>
-              <input
-                value={main.target_file}
-                onChange={(e) => {
-                  setMain({ ...main, target_file: e.target.value });
-                }}
-                type="text"
-                placeholder="ex. css/main.custom.css"
-                required={false}
-              />
-            </div>
-          )}
-        </div>
-      </div>
-
-      <div className="downloadBar">
-        {showLoadPanel && <Loader setShow={setLoadPanel} setData={setData} />}
-        <div className="wrapper">
-          <button onClick={resetData} className="reset">
-            <i className="ri-restart-fill"></i>Reset
-          </button>
-          <button
-            onClick={() => {
-              setLoadPanel(true);
-            }}
-            className="load"
-          >
-            <i className="ri-loader-4-line"></i>Load
-          </button>
-
-          {configOk && (
-            <>
-              <button className="test">
-                <i className="ri-flask-fill"></i>Test
+          <div className="downloadBar">
+            {showLoadPanel && (
+              <Loader setShow={setLoadPanel} setData={setData} />
+            )}
+            <div className="wrapper">
+              <button onClick={resetData} className="reset">
+                <i className="ri-restart-fill"></i>Reset
               </button>
               <button
-                className={`save ${localSaving ? "busy" : ""}`}
-                onClick={saveIntoLocal}
+                onClick={() => {
+                  setLoadPanel(true);
+                }}
+                className="load"
               >
-                <i className="ri-window-fill"></i>{" "}
-                {localSaving ? "Saving" : "Save Local"}
+                <i className="ri-loader-4-line"></i>Load
               </button>
 
-              <button className="download" onClick={exportConfig}>
-                <i className="ri-download-cloud-2-line"></i> Export
-              </button>
-            </>
+              {configOk && (
+                <>
+                  <button onClick={() => setPreview(true)} className="test">
+                    <i className="ri-flask-fill"></i>Test
+                  </button>
+                  <button
+                    className={`save ${localSaving ? "busy" : ""}`}
+                    onClick={saveIntoLocal}
+                  >
+                    <i className="ri-window-fill"></i>{" "}
+                    {localSaving ? "Saving" : "Save Local"}
+                  </button>
+
+                  <button className="download" onClick={exportConfig}>
+                    <i className="ri-download-cloud-2-line"></i> Export
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+
+          {showAddCredit && (
+            <AddCredit
+              setShow={setAddCredit}
+              credits={credits}
+              setCredits={setCredits}
+            />
           )}
-        </div>
-      </div>
 
-      {showAddCredit && (
-        <AddCredit
-          setShow={setAddCredit}
-          credits={credits}
-          setCredits={setCredits}
-        />
-      )}
+          {showEditCredit && (
+            <EditCredit
+              setShow={setEditCredit}
+              credits={credits}
+              setCredits={setCredits}
+              focusCredit={focusCredit}
+              focusCreditIndex={focusCreditIndex}
+            />
+          )}
 
-      {showEditCredit && (
-        <EditCredit
-          setShow={setEditCredit}
-          credits={credits}
-          setCredits={setCredits}
-          focusCredit={focusCredit}
-          focusCreditIndex={focusCreditIndex}
-        />
-      )}
+          {showAddConfig && (
+            <AddConfig
+              setShow={setAddConfig}
+              configs={configs}
+              setConfigs={setConfigs}
+            />
+          )}
 
-      {showAddConfig && (
-        <AddConfig
-          setShow={setAddConfig}
-          configs={configs}
-          setConfigs={setConfigs}
-        />
-      )}
-
-      {showEditConfig && (
-        <EditConfig
-          setShow={setEditConfig}
-          configs={configs}
-          setConfigs={setConfigs}
-          focusConfig={focusConfig}
-          focusConfigIndex={focusConfigIndex}
-        />
+          {showEditConfig && (
+            <EditConfig
+              setShow={setEditConfig}
+              configs={configs}
+              setConfigs={setConfigs}
+              focusConfig={focusConfig}
+              focusConfigIndex={focusConfigIndex}
+            />
+          )}
+        </>
       )}
     </>
   );
