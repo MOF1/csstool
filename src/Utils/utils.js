@@ -105,7 +105,7 @@ const scan_config_color = (config) => {
     throw new Error("Config/hint_image not found");
 };
 
-const scan_config = (data) => {
+export const scan_config = (data) => {
   let ret = {
     err: "",
     success: false,
@@ -213,8 +213,4 @@ const scan_config = (data) => {
     ret.err = err.message;
     return ret;
   }
-};
-
-module.exports = {
-  scan_config,
 };
