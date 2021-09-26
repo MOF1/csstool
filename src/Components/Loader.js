@@ -1,14 +1,17 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { sleep } from "../Sections/Work";
+import { scan_config } from "../Utils/utils";
 import "./Loader.css";
 
-export default function Loader({ setShow }) {
+export default function Loader({ setShow, setData }) {
   const [onLoad, setLoad] = useState(false);
   const [progress, setProgress] = useState(0);
   const [err, setErr] = useState(false);
   const [msg, setMsg] = useState("");
 
   const [url, setUrl] = useState("");
+  const localAvail = localStorage.getItem("css_config") ? true : false;
 
   const loadFile = async (e) => {
     const files = e.target.files;
@@ -21,15 +24,69 @@ export default function Loader({ setShow }) {
     // Starts the process
     await start();
 
-    await set_progress(20);
+    let reader = new FileReader();
+    reader.readAsText(file, "UTF-8");
+    set_progress(20);
 
-    await stop("Fucked");
-    await closePanel();
+    reader.onload = async (e) => {
+      const data = e.target.result;
+      set_progress(60);
+      const csstData = await JSON.parse(data);
+      const ret = scan_config(csstData);
+      if (!ret.success) {
+        await stop(`Config error. Reason :: ${ret.err}`);
+        await closePanel();
+      } else {
+        await stop();
+        await closePanel();
+        setData(csstData);
+      }
+    };
+
+    reader.onerror = async (err) => {
+      await stop(err.message);
+      await closePanel();
+    };
   };
 
-  const loadUrl = async () => {};
+  const loadUrl = async () => {
+    try {
+      await start();
+      await set_progress(30);
+      const response = await axios.get(url);
+      const ret = scan_config(response.data);
+      await set_progress(90);
+      if (!ret.success) {
+        await stop(`Config error. Reason :: ${ret.err}`);
+        await closePanel();
+      } else {
+        await stop();
+        await closePanel();
+        setData(response.data);
+      }
+    } catch (err) {
+      await stop(err.message);
+      await closePanel();
+    }
+  };
 
-  const loadLocal = () => {};
+  const loadLocal = async () => {
+    await start();
+    const lC = localStorage.getItem("css_config");
+    const data = JSON.parse(lC);
+
+    await set_progress(40);
+
+    const ret = scan_config(data);
+    if (ret.success) {
+      await closePanel();
+      setData(data);
+    } else {
+      await stop("Saved local data corrupted.");
+      localStorage.setItem("css_config", null);
+      await closePanel();
+    }
+  };
 
   const start = async () => {
     setErr(false);
@@ -98,7 +155,10 @@ export default function Loader({ setShow }) {
                 <i className="ri-file-3-line"></i>
                 Load from file
               </label>
-              <div className="bigButton">
+              <div
+                onClick={loadLocal}
+                className={`bigButton ${!localAvail ? "disabled" : ""}`}
+              >
                 <i className="ri-window-2-line"></i>
                 Load from browser
               </div>
@@ -121,10 +181,7 @@ export default function Loader({ setShow }) {
           <i className="ri-error-warning-fill"></i>
           <div>
             <p>Failed</p>
-            <p className="errMsg">
-              There are some network issue going on. Fix your network then try
-              again.
-            </p>
+            <p className="errMsg">{msg}</p>
           </div>
         </div>
       )}
