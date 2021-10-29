@@ -6,12 +6,12 @@ import JSZip from "jszip";
 import { saveAs } from "file-saver";
 
 const getValue = (item) => {
-  if (item.type === "select") {
+  if (item.config_type === "select") {
     const option = item.options.find((i) => i.name === item.default);
     if (!option) return "";
     return `${item.var}: ${option.value};
 ${option.raw_value ? option.raw_value : ""}`;
-  } else if (item.type === "imageURL") {
+  } else if (item.config_type === "imageURL") {
     return item.default ? `${item.var}: url("${item.default}");` : "";
   }
 
@@ -62,7 +62,7 @@ export default function Work({ value, main, name, match }) {
     const nState = state.map((item) => {
       item.val = item.title === i.title ? e.target.value.trim() : item.val;
 
-      if (item.type === "imageURL") {
+      if (item.config_type === "imageURL") {
         item.value =
           item.title === i.title
             ? `${item.var}: url("${item.val}");`
@@ -105,7 +105,7 @@ export default function Work({ value, main, name, match }) {
       state.map((item) => {
         text += item.val ? `\n${item.value}` : "";
 
-        if (item.type === "imageURL") {
+        if (item.config_type === "imageURL") {
           if (!item.val && item.raw_value_on_empty) {
             text += "\n" + item.raw_value_on_empty;
           }
@@ -198,7 +198,7 @@ export default function Work({ value, main, name, match }) {
                   <div className="configMaxItem">
                     <div className="inputContainer">
                       <h4>Change Value</h4>
-                      {item.type === "color" && (
+                      {item.config_type === "color" && (
                         <ChromePicker
                           color={item.val}
                           onChangeComplete={(e) => setColor(e, item)}
@@ -206,7 +206,7 @@ export default function Work({ value, main, name, match }) {
                       )}
 
                       <div>
-                        {item.type === "select" &&
+                        {item.config_type === "select" &&
                           item.options.map((option, id) => (
                             <div key={id} style={{ marginBottom: "1rem" }}>
                               <input
@@ -226,7 +226,7 @@ export default function Work({ value, main, name, match }) {
                           ))}
                       </div>
 
-                      {item.type === "imageURL" && (
+                      {item.config_type === "imageURL" && (
                         <input
                           onChange={(e) => setValue(e, item)}
                           id={item.var}

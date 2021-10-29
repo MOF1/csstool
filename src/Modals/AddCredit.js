@@ -77,7 +77,7 @@ export default function AddCredit({ setShow, credits, setCredits }) {
           <div className="linkLists">
             {links.map((link, index) => (
               <div className="linkItem" key={index}>
-                <div className="linkName">{link.type}</div>
+                <div className="linkName">{link.contact_type}</div>
                 <div className="linkItemActions">
                   <i
                     onClick={() => {

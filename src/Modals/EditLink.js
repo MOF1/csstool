@@ -9,7 +9,7 @@ export default function EditLink({
 }) {
   const [err, setErr] = useState(false);
   const [errMsg, setMsg] = useState("");
-  const [name, setName] = useState(() => focusLink.type);
+  const [name, setName] = useState(() => focusLink.contact_type);
   const [link, setLink] = useState(() => focusLink.link);
 
   const setNameState = (e) => {
@@ -17,7 +17,8 @@ export default function EditLink({
     const exists = links.find((item, index) => {
       if (focusIndex !== index) {
         return (
-          item.type.toLowerCase().trim() === e.target.value.toLowerCase().trim()
+          item.contact_type.toLowerCase().trim() ===
+          e.target.value.toLowerCase().trim()
         );
       }
       return false;
@@ -33,7 +34,7 @@ export default function EditLink({
   const editRefLink = () => {
     const nLinks = links.map((item, index) => {
       if (index === focusIndex) {
-        item.type = name;
+        item.contact_type = name;
         item.link = link;
       }
       return item;
@@ -46,7 +47,7 @@ export default function EditLink({
   const resetData = () => {
     setErr(false);
     setMsg("");
-    setName(focusLink.type);
+    setName(focusLink.contact_type);
     setLink(focusLink.link);
   };
   return (

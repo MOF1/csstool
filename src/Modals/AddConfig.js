@@ -6,15 +6,15 @@ import EditOption from "./EditOption";
 
 const getTypes = () => [
   {
-    type: "imageURL",
+    config_type: "imageURL",
     value: true,
   },
   {
-    type: "select",
+    config_type: "select",
     value: false,
   },
   {
-    type: "color",
+    config_type: "color",
     value: false,
   },
 ];
@@ -60,7 +60,7 @@ export default function AddConfig({ setShow, configs, setConfigs }) {
   const changeType = (e) => {
     setTypes(
       types.map((item) => {
-        item.value = item.type === e.target.value ? true : false;
+        item.value = item.config_type === e.target.value ? true : false;
         return item;
       })
     );
@@ -113,16 +113,16 @@ export default function AddConfig({ setShow, configs, setConfigs }) {
     setMsg("");
   };
 
-  const getCurrType = () => types.find((item) => item.value).type;
+  const getCurrType = () => types.find((item) => item.value).config_type;
 
   const configOK = () => {
-    const type = getCurrType();
+    const config_type = getCurrType();
 
     if (cvar === "") {
       return false;
     }
 
-    if (type === "select") {
+    if (config_type === "select") {
       const dOption = options.find((option) => option.name === defaultOption);
 
       if (!(dOption && options.length > 1)) {
@@ -134,42 +134,43 @@ export default function AddConfig({ setShow, configs, setConfigs }) {
   };
 
   const addConfig = () => {
-    const type = getCurrType();
+    const config_type = getCurrType();
 
-    if (type === "select") {
+    if (config_type === "select") {
       setConfigs([
         ...configs,
         {
           title: name,
           description,
-          type: "select",
+          config_type: "select",
           var: cvar,
           default: defaultOption,
           hint_image,
           options,
         },
       ]);
-    } else if (type === "imageURL") {
+    } else if (config_type === "imageURL") {
       setConfigs([
         ...configs,
         {
           title: name,
           description,
-          type: "imageURL",
+          config_type: "imageURL",
           var: cvar,
           default: defaultVar,
+
           hint_image,
           raw_value_on_empty: raw_on_empty,
           raw_value_on_fill: raw_on_fill,
         },
       ]);
-    } else if (type === "color") {
+    } else if (config_type === "color") {
       setConfigs([
         ...configs,
         {
           title: name,
           description,
-          type: "color",
+          config_type: "color",
           var: cvar,
           default: defaultColor,
           hint_image,
@@ -203,11 +204,11 @@ export default function AddConfig({ setShow, configs, setConfigs }) {
                   id={`type${id}`}
                   type="radio"
                   name="configType"
-                  value={item.type}
+                  value={item.config_type}
                   checked={item.value === true}
                   onChange={(e) => changeType(e)}
                 />
-                <label htmlFor={`type${id}`}>{item.type}</label>
+                <label htmlFor={`type${id}`}>{item.config_type}</label>
               </div>
             ))}
           </div>
@@ -256,8 +257,9 @@ export default function AddConfig({ setShow, configs, setConfigs }) {
             <br></br>
             <br></br>
 
-            {types.find((item) => item.type === "imageURL" && item.value) !==
-              undefined && (
+            {types.find(
+              (item) => item.config_type === "imageURL" && item.value
+            ) !== undefined && (
               <>
                 <p className="head">Default value (optional)</p>
                 <input
@@ -289,8 +291,9 @@ export default function AddConfig({ setShow, configs, setConfigs }) {
               </>
             )}
 
-            {types.find((item) => item.type === "select" && item.value) !==
-              undefined && (
+            {types.find(
+              (item) => item.config_type === "select" && item.value
+            ) !== undefined && (
               <>
                 {options.length > 0 && (
                   <>
@@ -344,8 +347,9 @@ export default function AddConfig({ setShow, configs, setConfigs }) {
               </>
             )}
 
-            {types.find((item) => item.type === "color" && item.value) !==
-              undefined && (
+            {types.find(
+              (item) => item.config_type === "color" && item.value
+            ) !== undefined && (
               <>
                 <p className="head">Default color</p>
                 <ChromePicker

@@ -42,7 +42,7 @@ export default function Info({ css }) {
                     href={contact.link}
                     rel="noreferrer"
                   >
-                    {contact.type}
+                    {contact.contact_type}
                   </a>
                 ))}
               </p>

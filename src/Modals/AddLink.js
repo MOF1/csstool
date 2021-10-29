@@ -8,7 +8,9 @@ export default function AddLink({ setShow, links, setLinks }) {
 
   const setNameState = (e) => {
     setName(e.target.value.trim());
-    const exists = links.find((item) => item.type === e.target.value.trim());
+    const exists = links.find(
+      (item) => item.contact_type === e.target.value.trim()
+    );
     if (exists) {
       setErr(true);
       setMsg("Same reference already exists");
@@ -18,7 +20,7 @@ export default function AddLink({ setShow, links, setLinks }) {
   };
 
   const addRefLink = () => {
-    setLinks([...links, { type: name, link: link }]);
+    setLinks([...links, { contact_type: name, link: link }]);
     resetData();
     setShow(false);
   };

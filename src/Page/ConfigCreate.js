@@ -329,15 +329,15 @@ export default function ConfigCreate() {
                     {configs.map((item, id) => (
                       <div key={id} className="configInItem">
                         <div className="configInItemInfo">
-                          {item.type === "color" && (
+                          {item.config_type === "color" && (
                             <i className="ri-brush-2-fill"></i>
                           )}
 
-                          {item.type === "imageURL" && (
+                          {item.config_type === "imageURL" && (
                             <i className="ri-image-2-fill"></i>
                           )}
 
-                          {item.type === "select" && (
+                          {item.config_type === "select" && (
                             <i className="ri-checkbox-multiple-fill"></i>
                           )}
 

@@ -50,7 +50,8 @@ class scan {
 
 const scan_config_input = (config) => {
   if (!scan.str(config, "title")) throw new Error("Config/Title not found");
-  if (!scan.str(config, "type")) throw new Error("Config/type not found");
+  if (!scan.str(config, "config_type"))
+    throw new Error("Config/config_type not found");
   if (!scan.str(config, "var")) throw new Error("Config/var not found");
   if (!scan.str_optional(config, "default"))
     throw new Error("Config/default not found");
@@ -66,7 +67,8 @@ const scan_config_input = (config) => {
 
 const scan_config_select = (config) => {
   if (!scan.str(config, "title")) throw new Error("Config/Title not found");
-  if (!scan.str(config, "type")) throw new Error("Config/type not found");
+  if (!scan.str(config, "config_type"))
+    throw new Error("Config/config_type not found");
   if (!scan.str(config, "var")) throw new Error("Config/var not found");
   if (!scan.str(config, "default")) throw new Error("Config/default not found");
   if (!scan.str_optional(config, "description"))
@@ -96,7 +98,8 @@ const scan_config_select = (config) => {
 
 const scan_config_color = (config) => {
   if (!scan.str(config, "title")) throw new Error("Config/Title not found");
-  if (!scan.str(config, "type")) throw new Error("Config/type not found");
+  if (!scan.str(config, "config_type"))
+    throw new Error("Config/config_type not found");
   if (!scan.str(config, "var")) throw new Error("Config/var not found");
   if (!scan.str(config, "default")) throw new Error("Config/default not found");
   if (!scan.str_optional(config, "description"))
@@ -162,8 +165,8 @@ export const scan_config = (data) => {
           if (!scan.aObj(contacts[j]))
             throw new Error("Invalid Base/Credits/Contacts object");
 
-          if (!scan.str(contacts[j], "type"))
-            throw new Error("Credit/Contacts/Type not found");
+          if (!scan.str(contacts[j], "contact_type"))
+            throw new Error("Credit/Contacts/contact_type not found");
 
           if (!scan.str(contacts[j], "link"))
             throw new Error("Credit/Contacts/Link not found");
@@ -175,7 +178,7 @@ export const scan_config = (data) => {
     const main = data.main;
 
     if (!scan.str(main, "target_type"))
-      throw new Error("Target/Type not defined");
+      throw new Error("Target/target_type not defined");
 
     if (!scan.str(main, "target_url"))
       throw new Error("Target/Url not defined");
@@ -192,7 +195,7 @@ export const scan_config = (data) => {
     for (let i = 0; i < configs.length; i++) {
       if (!scan.aObj(configs[i])) throw new Error("Invalid Config object");
 
-      switch (configs[i].type) {
+      switch (configs[i].config_type) {
         case "imageURL":
           scan_config_input(configs[i]);
           break;

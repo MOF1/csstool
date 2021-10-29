@@ -7,21 +7,21 @@ import EditOption from "./EditOption";
 const getTypes = (type) => {
   const types = [
     {
-      type: "imageURL",
+      config_type: "imageURL",
       value: false,
     },
     {
-      type: "select",
+      config_type: "select",
       value: false,
     },
     {
-      type: "color",
+      config_type: "color",
       value: false,
     },
   ];
 
   return types.map((item) => {
-    item.value = item.type === type;
+    item.value = item.config_type === type;
     return item;
   });
 };
@@ -70,7 +70,7 @@ export default function EditConfig({
   const [err, setErr] = useState(false);
   const [errMsg, setMsg] = useState("");
 
-  const [types, setTypes] = useState(() => getTypes(focusConfig.type));
+  const [types, setTypes] = useState(() => getTypes(focusConfig.config_type));
 
   const setNameState = (e) => {
     setName(e.target.value);
@@ -86,7 +86,7 @@ export default function EditConfig({
   const changeType = (e) => {
     setTypes(
       types.map((item) => {
-        item.value = item.type === e.target.value ? true : false;
+        item.value = item.config_type === e.target.value ? true : false;
         return item;
       })
     );
@@ -136,20 +136,20 @@ export default function EditConfig({
     setRaw_on_fill(getInitial(focusConfig.raw_value_on_fill));
     setOptions(getInitial(focusConfig.options, []));
     setDefaultOption(focusConfig.default);
-    setTypes(getTypes(focusConfig.type));
+    setTypes(getTypes(focusConfig.config_type));
     setCvar(focusConfig.var);
   };
 
-  const getCurrType = () => types.find((item) => item.value).type;
+  const getCurrType = () => types.find((item) => item.value).config_type;
 
   const configOK = () => {
-    const type = getCurrType();
+    const config_type = getCurrType();
 
     if (cvar === "") {
       return false;
     }
 
-    if (type === "select") {
+    if (config_type === "select") {
       const dOption = options.find((option) => option.name === defaultOption);
 
       if (!(dOption && options.length > 1)) {
@@ -161,7 +161,7 @@ export default function EditConfig({
   };
 
   const addConfig = () => {
-    const type = getCurrType();
+    const config_type = getCurrType();
 
     const nConfig = configs.map((item, index) => {
       if (index !== focusConfigIndex) return item;
@@ -171,17 +171,17 @@ export default function EditConfig({
       item.var = cvar;
       item.hint_image = hint_image;
 
-      if (type === "select") {
-        item.type = "select";
+      if (config_type === "select") {
+        item.config_type = "select";
         item.default = defaultOption;
         item.options = options;
-      } else if (type === "imageURL") {
-        item.type = "imageURL";
+      } else if (config_type === "imageURL") {
+        item.config_type = "imageURL";
         item.default = defaultVar;
         item.raw_value_on_empty = raw_on_empty;
         item.raw_value_on_fill = raw_on_fill;
-      } else if (type === "color") {
-        item.type = "color";
+      } else if (config_type === "color") {
+        item.config_type = "color";
         item.default = defaultColor;
       }
 
@@ -216,11 +216,11 @@ export default function EditConfig({
                   id={`type${id}`}
                   type="radio"
                   name="configType"
-                  value={item.type}
+                  value={item.config_type}
                   checked={item.value === true}
                   onChange={(e) => changeType(e)}
                 />
-                <label htmlFor={`type${id}`}>{item.type}</label>
+                <label htmlFor={`type${id}`}>{item.config_type}</label>
               </div>
             ))}
           </div>
@@ -269,8 +269,9 @@ export default function EditConfig({
             <br></br>
             <br></br>
 
-            {types.find((item) => item.type === "imageURL" && item.value) !==
-              undefined && (
+            {types.find(
+              (item) => item.config_type === "imageURL" && item.value
+            ) !== undefined && (
               <>
                 <p className="head">Default value (optional)</p>
                 <input
@@ -302,8 +303,9 @@ export default function EditConfig({
               </>
             )}
 
-            {types.find((item) => item.type === "select" && item.value) !==
-              undefined && (
+            {types.find(
+              (item) => item.config_type === "select" && item.value
+            ) !== undefined && (
               <>
                 {options.length > 0 && (
                   <>
@@ -357,8 +359,9 @@ export default function EditConfig({
               </>
             )}
 
-            {types.find((item) => item.type === "color" && item.value) !==
-              undefined && (
+            {types.find(
+              (item) => item.config_type === "color" && item.value
+            ) !== undefined && (
               <>
                 <p className="head">Default color</p>
                 <ChromePicker
